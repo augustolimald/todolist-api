@@ -1,0 +1,330 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "API para plataforma do Top Caixa",
+    "title": "TopCaixa",
+    "version": "1.0.0",
+    "contact": {
+      "email": "augustocesar827@gmail.com"
+    }
+  },
+  "paths": {
+		"/tasks": {
+			"get": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Lista todas as tarefas",
+				"description": "Lista todas as tarefas",
+				"operationId": "getTasks",
+				"responses": {
+					"200": {
+						"description": "Sucesso",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Task"
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+
+			"post": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Cria uma nova tarefa",
+				"description": "Cria uma nova tarefa",
+				"operationId": "createTask",
+				"requestBody": {
+					"description": "Tarefa",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TaskBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Sucesso",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Dados inválidos"
+					}
+				}
+			}
+		},
+
+		"/tasks/{taskId}": {
+			"get": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Busca uma tarefa",
+				"description": "Busca uma tarefa",
+				"operationId": "getTask",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"description": "Id da tarefa",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Sucesso",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Tarefa não encontrada"
+					}
+				}
+			},
+
+			"put": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Atualiza uma tarefa",
+				"description": "Atualiza uma tarefa",
+				"operationId": "updateTask",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"description": "Id da tarefa",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "Tarefa",
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/TaskBody"
+							}
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "Sucesso",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/Task"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Dados inválidos"
+					},
+					"404": {
+						"description": "Tarefa não encontrada"
+					}
+				}
+			},
+
+			"delete": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Deleta uma tarefa",
+				"description": "Deleta uma tarefa",
+				"operationId": "deleteTask",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"description": "Id da tarefa",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Sucesso"
+					},
+					"404": {
+						"description": "Tarefa não encontrada"
+					}
+				}
+			}
+		},
+
+		"/tasks/{taskId}/completed": {
+			"patch": {
+				"tags": [
+					"Tasks"
+				],
+				"summary": "Marca uma tarefa como concluída",
+				"description": "Marca uma tarefa como concluída",
+				"operationId": "completeTask",
+				"parameters": [
+					{
+						"name": "taskId",
+						"in": "path",
+						"description": "Id da tarefa",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Sucesso"
+					},
+					"404": {
+						"description": "Tarefa não encontrada"
+					}
+				}
+			}
+		}
+	},
+  "components": {
+    "schemas": {
+			"Task": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"title": {
+						"type": "string",
+						"example": "Trabalho Prático de Serviço Web Rest"
+					},
+					"description": {
+						"type": "string",
+						"description": "O objetivo deste trabalho é implementar um sistema de gerenciamento de tarefas  (to do list), conforme especificado a seguir. O sistema deve ter pelo menos dois componentes: uma cliente e um serviço web com uma API REST. "
+					},
+					"deadline": {
+						"type": "integer",
+						"example": 1650596400000
+					},
+					"createdAt": {
+						"type": "integer",
+						"example": 1647949644134
+					},
+					"completedAt": {
+						"type": "integer",
+						"example": null
+					}
+				}
+			},
+
+			"TaskBody": {
+				"type": "object",
+				"properties": {
+					"title": {
+						"type": "string",
+						"example": "Trabalho Prático de Serviço Web Rest"
+					},
+					"description": {
+						"type": "string",
+						"description": "O objetivo deste trabalho é implementar um sistema de gerenciamento de tarefas  (to do list), conforme especificado a seguir. O sistema deve ter pelo menos dois componentes: uma cliente e um serviço web com uma API REST. "
+					},
+					"deadline": {
+						"type": "integer",
+						"example": 1650596400000
+					}
+				}
+			}
+		},
+    "responses": {
+      "WrongInfoError": {
+        "description": "Alguma informação não foi enviada corretamente",
+				"content": {
+					"application/json": {
+						"schema": {
+							"type": "object",
+							"properties": {
+								"message": {
+									"type": "string",
+									"example": "Erro de Validação"
+								},
+								"errors": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"value": {
+												"type": "string",
+												"example": "name"
+											},
+											"msg": {
+												"type": "string",
+												"example": "O campo name é obrigatório"
+											},
+											"param": {
+												"type": "string",
+												"example": "phone"
+											},
+											"location": {
+												"type": "string",
+												"example": "body"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+      },
+      "UnauthorizedError": {
+        "description": "Token inválido."
+      },
+      "ForbiddenError": {
+        "description": "Você não tem permissão para isso"
+      },
+      "NotFoundError": {
+        "description": "Informação não encontrada"
+      },
+      "ConflictError": {
+        "description": "Essa informação já existe em nossa base de dados"
+      },
+      "TooManyRequests": {
+        "description": "Você fez muitas requisições em seguida. Aguarde um pouco"
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

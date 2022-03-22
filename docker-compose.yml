@@ -1,0 +1,35 @@
+version: "3.7"
+
+services:
+  postgres:
+    image: postgres
+    container_name: todolist-postgres
+    environment:
+      POSTGRES_USER: todolist
+      POSTGRES_PASSWORD: todolist
+      POSTGRES_DB: todolist
+    ports:
+      - 8998:5432
+    volumes:
+      - pgdata:/data/postgres 
+    restart: always
+
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: todolist-api
+    env_file: .env.example
+    ports: 
+      - 8999:3333
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
+volumes:
+  pgdata: 
+    driver: local
