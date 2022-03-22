@@ -231,11 +231,11 @@
 					},
 					"deadline": {
 						"type": "integer",
-						"example": 1650596400000
+						"example": "2022-03-22T12:29:29.220Z"
 					},
 					"createdAt": {
 						"type": "integer",
-						"example": 1647949644134
+						"example": "2022-03-22T12:29:29.220Z"
 					},
 					"completedAt": {
 						"type": "integer",
@@ -257,74 +257,10 @@
 					},
 					"deadline": {
 						"type": "integer",
-						"example": 1650596400000
+						"example": "2022-03-22T12:29:29.220Z"
 					}
 				}
 			}
-		},
-    "responses": {
-      "WrongInfoError": {
-        "description": "Alguma informação não foi enviada corretamente",
-				"content": {
-					"application/json": {
-						"schema": {
-							"type": "object",
-							"properties": {
-								"message": {
-									"type": "string",
-									"example": "Erro de Validação"
-								},
-								"errors": {
-									"type": "array",
-									"items": {
-										"type": "object",
-										"properties": {
-											"value": {
-												"type": "string",
-												"example": "name"
-											},
-											"msg": {
-												"type": "string",
-												"example": "O campo name é obrigatório"
-											},
-											"param": {
-												"type": "string",
-												"example": "phone"
-											},
-											"location": {
-												"type": "string",
-												"example": "body"
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-      },
-      "UnauthorizedError": {
-        "description": "Token inválido."
-      },
-      "ForbiddenError": {
-        "description": "Você não tem permissão para isso"
-      },
-      "NotFoundError": {
-        "description": "Informação não encontrada"
-      },
-      "ConflictError": {
-        "description": "Essa informação já existe em nossa base de dados"
-      },
-      "TooManyRequests": {
-        "description": "Você fez muitas requisições em seguida. Aguarde um pouco"
-      }
-    },
-    "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
-    }
+		}
   }
 }
